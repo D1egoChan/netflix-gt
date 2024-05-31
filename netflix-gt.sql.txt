@@ -1,0 +1,49 @@
+
+CREATE TABLE estrenos (
+                id_estrenos INT NOT NULL,
+                fecha_estreno DATE NOT NULL,
+                peliculas_estreno VARCHAR(60) NOT NULL,
+                novedades VARCHAR(50) NOT NULL,
+                ranking DECIMAL(4),
+                trailer_url VARCHAR(300) NOT NULL,
+                id_peliculas INT NOT NULL,
+                director VARCHAR(100),
+                PRIMARY KEY (id_estrenos)
+);
+
+
+CREATE TABLE peliculas (
+                id_peliculas INT NOT NULL,
+                titulo VARCHAR(60) NOT NULL,
+                genero VARCHAR(50) NOT NULL,
+                sinopsis_corta VARCHAR(150) NOT NULL,
+                duracion TIME NOT NULL,
+                id_estrenos INT NOT NULL,
+                PRIMARY KEY (id_peliculas)
+);
+
+
+CREATE TABLE detalles_peliculas (
+                id_detalles INT NOT NULL,
+                guionistas VARCHAR(150) NOT NULL,
+                pais_peiculas VARCHAR(50),
+                elenco VARCHAR(300) NOT NULL,
+                clasificaciones VARCHAR(150) NOT NULL,
+                idioma VARCHAR(50) NOT NULL,
+                sinopsis VARCHAR(600) NOT NULL,
+                id_peliculas INT NOT NULL,
+                PRIMARY KEY (id_detalles)
+);
+
+
+ALTER TABLE peliculas ADD CONSTRAINT estrenos_peliculas_fk
+FOREIGN KEY (id_estrenos)
+REFERENCES estrenos (id_estrenos)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE detalles_peliculas ADD CONSTRAINT peliculas_detalles_peliculas_fk
+FOREIGN KEY (id_peliculas)
+REFERENCES peliculas (id_peliculas)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
